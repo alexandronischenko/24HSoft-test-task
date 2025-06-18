@@ -43,6 +43,11 @@ class MainViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.reloadData()
+    }
+
     private func setupView() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
