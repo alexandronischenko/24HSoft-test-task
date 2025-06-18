@@ -24,7 +24,7 @@ protocol MainMapperProtocol {
         delegate: MainMapperDelegate,
         photos: [PhotoModel]
     ) -> [SectionViewModel]
-    func createAlertController(with error: Error) -> AlertControllerModel
+    func createAlertController() -> AlertControllerModel
 }
 
 // MARK: - ViewModel

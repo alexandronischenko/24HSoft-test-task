@@ -25,13 +25,7 @@ struct MainMapper: MainMapperProtocol {
         return [section]
     }
 
-    func createAlertController(with error: Error) -> AlertControllerModel {
-        .init(
-            title: "Произошла ошибка, попробуйте позже",
-            description: error.localizedDescription,
-            items: [
-                .init(title: "OK", style: .default)
-            ]
-        )
+    func createAlertController() -> AlertControllerModel {
+        .createErrorAlertModel()
     }
 }
