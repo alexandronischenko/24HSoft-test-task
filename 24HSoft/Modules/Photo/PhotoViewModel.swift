@@ -8,13 +8,11 @@
 import Foundation
 
 protocol PhotoViewModelProtocol {
-    var didLoadData: (() -> Void)? { get set }
     var username: String? { get set }
     var photoUrl: String { get set }
 }
 
 final class PhotoViewModel: PhotoViewModelProtocol {
-    var didLoadData: (() -> Void)?
     var username: String?
     var photoUrl: String
 

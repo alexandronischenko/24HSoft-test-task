@@ -38,7 +38,6 @@ class PhotoViewController: UIViewController {
         setupNavigationBar()
         setupView()
         setupConstraints()
-        setupBindings()
     }
 
     private func setupView() {
@@ -46,6 +45,28 @@ class PhotoViewController: UIViewController {
         view.addSubview(photoView)
 
         photoView.kf.indicatorType = .activity
+
+        title = viewModel.username ?? "Somebody That I Used to Know"
+
+        photoView.kf.setImage(
+            with: URL(string: viewModel.photoUrl),
+            options: [
+                .cacheSerializer(DefaultCacheSerializer.default),
+                .targetCache(ImageCache.default),
+                .waitForCache,
+                .cacheOriginalImage
+            ],
+            completionHandler: { [weak self] result in
+                switch result {
+                case .success(let value):
+                    break
+                case .failure(let error):
+                    let alertModel = AlertControllerModel.createErrorAlertModel()
+                    let alertController = UIAlertController.createAlertContoller(with: alertModel)
+                    self?.present(alertController, animated: true)
+                }
+            }
+        )
     }
 
     private func setupNavigationBar() {
@@ -68,32 +89,5 @@ class PhotoViewController: UIViewController {
         photoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         photoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         photoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-    }
-
-    private func setupBindings() {
-        viewModel.didLoadData = { [weak self] in
-            guard let self = self else { return }
-            title = viewModel.username ?? "Somebody That I Used to Know"
-
-            photoView.kf.setImage(
-                with: URL(string: viewModel.photoUrl),
-                options: [
-                    .cacheSerializer(DefaultCacheSerializer.default),
-                    .targetCache(ImageCache.default),
-                    .waitForCache,
-                    .cacheOriginalImage
-                ],
-                completionHandler: { [weak self] result in
-                    switch result {
-                    case .success(let value):
-                        break
-                    case .failure(let error):
-                        let alertModel = AlertControllerModel.createErrorAlertModel()
-                        let alertController = UIAlertController.createAlertContoller(with: alertModel)
-                        self?.present(alertController, animated: true)
-                    }
-                }
-            )
-        }
     }
 }

@@ -39,7 +39,7 @@ final class MainViewModel: MainViewModelProtocol {
                     )
                     didLoadData?()
                 case .failure(let error):
-                    onShowAlert?(mapper.createAlertController(with: error))
+                    onShowAlert?(mapper.createAlertController())
                     didLoadData?()
                 }
             }
