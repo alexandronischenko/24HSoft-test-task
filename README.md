@@ -1,4 +1,7 @@
 # 24HSoft-test-task
+
+![gif](simulator.gif)
+
 ## Overview
 
 iOS app that displays photos from Unsplash API with two screens:
